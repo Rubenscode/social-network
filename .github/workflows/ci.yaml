@@ -138,3 +138,11 @@ jobs:
           tags: |
             rubenscode/social-network:backend-${{ env.commit_sha }}
             rubenscode/social-network:latest
+
+  deploy:
+    name: Deploy on Render
+    runs-on: ubuntu-latest
+    needs: docker
+    steps:
+      - name: Send POST request to Render Deploy Hook
+        run: curl -X POST -d {} ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
